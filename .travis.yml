@@ -6,6 +6,8 @@ branches:
   - nightly
   - ci
   - "/^(release\\/)?v([1-9]\\d*!)?(0|[1-9]\\d*)(\\.(0|[1-9]\\d*))*((a|b|rc)(0|[1-9]\\d*))?(\\.post(0|[1-9]\\d*))?(\\.dev(0|[1-9]\\d*))?$/"
+services:
+- postgresql
 before_install:
 - pip install -U pip setuptools wheel
 - pip install -r requirements-ci.txt
