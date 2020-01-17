@@ -17,10 +17,9 @@ with open(
 
 
 dependencies = [
-    'yhttp',
+    'yhttp >= 1.4, < 2',
     'pony',
     'psycopg2',
-    'easycli',
 ]
 
 
