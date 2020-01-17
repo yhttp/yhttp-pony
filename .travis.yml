@@ -1,0 +1,25 @@
+language: python
+python: 3.6
+branches:
+  only:
+  - master
+  - nightly
+  - ci
+  - "/^(release\\/)?v([1-9]\\d*!)?(0|[1-9]\\d*)(\\.(0|[1-9]\\d*))*((a|b|rc)(0|[1-9]\\d*))?(\\.post(0|[1-9]\\d*))?(\\.dev(0|[1-9]\\d*))?$/"
+before_install:
+- pip install -U pip setuptools wheel
+- pip install -r requirements-ci.txt
+install: pip install -e .
+script: py.test -v --cov=yhttp.extensions.pony
+after_success: coveralls
+deploy:
+  provider: pypi
+  skip_cleanup: true
+  user: Vahid.Mardani
+  password:
+    secure: joukspm2y12xQAK8e+GIYgRg/pFUm6X+QXIAhwgyybwvtlkUwCBYQB6HaPV2IMYUQXwkekwpzUKCQlz9kTIC3LHHslCx5Z4B4prbvya74/NzdE6stTm/97mEgmFTIbpooh9B6vmDS8U5HutSLhoAMbLQTzT85+HrzSGAG/BkknbI8cQhw2yrwwXh3tW68uBvHQINuI3ztHH/PwCm5s/5DX3C9cJLBxOHTzfoaiHxYd2anqZJOW1uN10Kc17ZCxF/Z9tEk0WlieYlviSeD4ISpqsV4UOasPJQpqOKbpn7yjMP6nASIgGQdt/6O0Bj8euLHDQPbIT6JYJoLbifidHxcvU24MmONFWwNWPXlL+YZiaZ2Pp9tQQsYK/G0GFlinkaIljyynL9ZfMTo4x2NYlsQa3EFeQ31H7YXWAd+aaSuj8QM41GveRQDk4nLUHNgKNjFyfwIJsPkrU1wmKCcrYvWo/t2RCQuAAIrf6PAdMa4XYJOoG4uaT7o19LvngUvFrJcITgiaYRFWkZishdM11CJFeoYV42Zf7nnFVT57FdXGyEruT2sTrm7z37fiK/YfJ57AqbeIxDSDi5jqIsy7tZXzoAILXYiE4835JOJCmFMo90SOhoygFnv/IcE7d5pRyBExKLbqFb6BQF38D8jaBIGFfggDk5uEyJ5Ugn0B2jt0E=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: yhttp/yhttp-pony
+    condition: "$TRAVIS_PYTHON_VERSION = 3.6"
