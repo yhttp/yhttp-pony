@@ -1,7 +1,7 @@
 from bddcli import Given, Application as CLIApplication, status, stderr, \
     stdout, when
 from yhttp import Application
-from yhttp.extensions.pony import setup as setuporm, configure as configureorm
+from yhttp.extensions.pony import install
 
 
 app = Application()
@@ -9,12 +9,11 @@ app.settings.merge('''
 db:
   url: postgres://postgres:postgres@localhost/foo
 ''')
-db = setuporm(app)
+db = install(app)
 
 
 def test_applicationcli():
     cliapp = CLIApplication('example', 'tests.test_cli:app.climain')
-    #configureorm(app)
     with Given(cliapp, 'db --help'):
         assert status == 0
         assert stderr == ''
@@ -27,3 +26,4 @@ def test_applicationcli():
         when('db drop')
         assert status == 0
         assert stderr == ''
+
