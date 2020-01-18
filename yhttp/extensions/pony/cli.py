@@ -2,7 +2,6 @@ import functools
 import getpass
 
 from easycli import SubCommand, Argument
-from yhttp import lazyattribute
 
 from . import dbmanager, uri
 
