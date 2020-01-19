@@ -1,0 +1,5 @@
+[run]
+source=yhttp
+
+[tool:pytest]
+addopts= --cov=yhttp tests
