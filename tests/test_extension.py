@@ -8,11 +8,6 @@ from yhttp.extensions.pony import install
 
 def test_extension(app, story, freshdb):
     db = install(app)
-    app.settings.merge(f'''
-    db:
-      url: {freshdb}
-    ''')
-
     class Foo(db.Entity):
         id = PrimaryKey(int, auto=True)
         title = Required(str)

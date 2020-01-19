@@ -11,7 +11,12 @@ def freshdb(app):
     dbname = 'yhttpponytestdb'
     dbmanager = createdbmanager(host, 'postgres', user, password)
     dbmanager.create(dbname, dropifexists=True)
-    yield f'postgres://{user}:{password}@{host}/{dbname}'
+    freshurl = f'postgres://{user}:{password}@{host}/{dbname}'
+    app.settings.merge(f'''
+    db:
+      url: {freshurl}
+    ''')
+    yield freshurl
     app.shutdown()
     dbmanager.dropifexists(dbname)
 
