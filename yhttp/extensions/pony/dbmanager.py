@@ -34,7 +34,10 @@ class PostgresqlManager(DBManager):
         finally:
             cursor.close()
 
-    def create(self, name, owner=None):
+    def create(self, name, owner=None, dropifexists=False):
+        if dropifexists:
+            self.dropifexists(name)
+
         query = f'CREATE DATABASE {name}'
         if owner:
             query += f' WITH OWNER {owner}'
