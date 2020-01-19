@@ -1,3 +1,4 @@
+import pytest
 from yhttp.extensions.pony import uri
 
 
@@ -26,3 +27,8 @@ def test_uriparse():
         database='qux',
         provider='postgres',
     )
+
+def test_uri_exceptions():
+    with pytest.raises(ValueError):
+        uri.parse('invalidurl')
+
