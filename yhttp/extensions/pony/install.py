@@ -28,6 +28,10 @@ def install(app, db=None):
     @app.when
     def shutdown(app):
         app.db.disconnect()
+        if app.db.provider is not None:
+            app.db.provider.disconnect()
+            app.db.provider = None
 
+        app.db.schema = None
     return db
 
