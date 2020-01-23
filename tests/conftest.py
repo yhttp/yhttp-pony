@@ -4,7 +4,7 @@ import bddrest
 import pytest
 
 from yhttp import Application
-from yhttp.extensions.pony.testing import freshdb
+from yhttp.extensions.pony import createdbmanager
 
 
 @pytest.fixture
@@ -16,4 +16,21 @@ def app():
 def Given(app):
     return functools.partial(bddrest.Given, app)
 
+
+@pytest.fixture
+def freshdb(app):
+    host='localhost'
+    user='postgres'
+    password='postgres'
+    dbname = 'yhttpponytestdb'
+    dbmanager = createdbmanager(host, 'postgres', user, password)
+    dbmanager.create(dbname, dropifexists=True)
+    freshurl = f'postgres://{user}:{password}@{host}/{dbname}'
+    app.settings.merge(f'''
+    db:
+      url: {freshurl}
+    ''')
+    yield freshurl
+    app.shutdown()
+    dbmanager.dropifexists(dbname)
 
