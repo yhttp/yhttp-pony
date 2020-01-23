@@ -23,12 +23,11 @@ class DatabaseAdministrativeCommand(SubCommand):
     ]
 
     def getdbmanager(self, args):
-        if args.password is None:
-            args.password = getdbpass()
+        password = args.password or getdbpass()
 
         return dbmanager.PostgresqlManager(
             user=args.user,
-            password=args.password,
+            password=password,
             host=args.host,
             dbname=args.database
         )

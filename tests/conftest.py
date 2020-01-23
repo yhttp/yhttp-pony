@@ -1,0 +1,19 @@
+import functools
+
+import bddrest
+import pytest
+
+from yhttp import Application
+from yhttp.extensions.pony.testing import freshdb
+
+
+@pytest.fixture
+def app():
+    return Application()
+
+
+@pytest.fixture
+def Given(app):
+    return functools.partial(bddrest.Given, app)
+
+

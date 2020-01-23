@@ -5,18 +5,20 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 
 class DBManager(metaclass=abc.ABCMeta):
+
     @abc.abstractmethod
-    def create(self, name, owner):
+    def create(self, name, owner):  # pragma: no cover
         pass
 
     @abc.abstractmethod
-    def drop(self, name):
+    def drop(self, name):  # pragma: no cover
         pass
 
 
 class PostgresqlManager(DBManager):
 
-    def __init__(self, host, dbname, user, password):
+    def __init__(self, host='localhost', dbname='postgres', user='postgres',
+                 password='postgres'):
         self.connection = psycopg2.connect(
             host=host,
             dbname=dbname,
@@ -32,7 +34,10 @@ class PostgresqlManager(DBManager):
         finally:
             cursor.close()
 
-    def create(self, name, owner=None):
+    def create(self, name, owner=None, dropifexists=False):
+        if dropifexists:
+            self.dropifexists(name)
+
         query = f'CREATE DATABASE {name}'
         if owner:
             query += f' WITH OWNER {owner}'
@@ -42,4 +47,11 @@ class PostgresqlManager(DBManager):
     def drop(self, name):
         self.execute(f'DROP DATABASE {name}')
 
+    def dropifexists(self, name):
+        self.execute(f'DROP DATABASE IF EXISTS {name}')
+
+
+
+def createdbmanager(*a, **k):
+    return PostgresqlManager(*a, **k)
 
