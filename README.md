@@ -1,16 +1,17 @@
 # yhttp-pony
 
 [![PyPI](http://img.shields.io/pypi/v/yhttp-pony.svg)](https://pypi.python.org/pypi/yhttp-pony)
-[![Build Status](https://travis-ci.org/yhttp/yhttp-pony.svg?branch=master)](https://travis-ci.org/yhttp/yhttp-pony)
-[![Coverage Status](https://coveralls.io/repos/github/yhttp/yhttp-pony/badge.svg?branch=master)](https://coveralls.io/github/yhttp/yhttp-pony?branch=master)
+[![Build Status](https://travis-ci.org/dobisel/yhttp-pony.svg?branch=master)](https://travis-ci.org/dobisel/yhttp-pony)
+[![Coverage Status](https://coveralls.io/repos/github/dobisel/yhttp-pony/badge.svg?branch=master)](https://coveralls.io/github/dobisel/yhttp-pony?branch=master)
 
 
-Pony ORM extension for [yhttp](https://github.com/yhttp/yhttp).
+Pony ORM extension for [yhttp](https://github.com/dobisel/yhttp).
 
 
 ## Install
 
 ```bash
+sudo apt install python3-dev libpq-dev postgresql  # Postgresql
 pip install yhttp-pony
 ```
 
@@ -60,3 +61,10 @@ myapp db create
 myapp db drop
 ```
 
+### Running tests
+
+```bash
+echo "ALTER USER postgres PASSWORD 'postgres'" | sudo -u postgres psql
+make test
+make cover
+```
