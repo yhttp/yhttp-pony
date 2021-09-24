@@ -1,7 +1,7 @@
 # yhttp-pony
 
 [![PyPI](http://img.shields.io/pypi/v/yhttp-pony.svg)](https://pypi.python.org/pypi/yhttp-pony)
-[![Build Status](https://travis-ci.org/yhttp/yhttp-pony.svg?branch=master)](https://travis-ci.org/yhttp/yhttp-pony)
+[![Build](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/yhttp/yhttp-pony/badge.svg?branch=master)](https://coveralls.io/github/yhttp/yhttp-pony?branch=master)
 
 
@@ -22,7 +22,7 @@ This is how to use the extension.
 
 ```python
 from yhttp import Appliation, json
-from yhttp.extensions import pony as ponyext 
+from yhttp.ext import pony as ponyext 
 from pony.orm import db_session as dbsession, PrimaryKey, Required
 
 
