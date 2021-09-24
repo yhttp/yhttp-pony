@@ -1,5 +1,4 @@
-from bddcli import Given, Application as CLIApplication, status, stderr, \
-    stdout, when
+from bddcli import Given, Application as CLIApplication, status, stderr, when
 from yhttp import Application
 from yhttp.ext.pony import install
 
@@ -26,4 +25,3 @@ def test_applicationcli():
         when('db drop')
         assert status == 0
         assert stderr == ''
-

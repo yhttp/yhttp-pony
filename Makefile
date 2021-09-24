@@ -43,3 +43,8 @@ dist: sdist bdist
 .PHONY: pypi
 pypi: dist
 	twine upload dist/*.gz dist/*.egg
+
+
+.PHONY: clean
+clean:
+	rm -rf build/*

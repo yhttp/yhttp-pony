@@ -28,7 +28,7 @@ def test_uriparse():
         provider='postgres',
     )
 
+
 def test_uri_exceptions():
     with pytest.raises(ValueError):
         uri.parse('invalidurl')
-

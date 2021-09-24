@@ -32,7 +32,6 @@ class DatabaseAdministrativeCommand(SubCommand):
             dbname=args.database
         )
 
-
     def getappdbinfo(self, args):
         dbsettings = args.application.settings.db
         url = uri.parse(dbsettings.url)
@@ -65,4 +64,3 @@ class DatabaseCLI(SubCommand):
         CreateDatabase,
         DropDatabase
     ]
-
