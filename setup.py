@@ -1,4 +1,3 @@
-
 from setuptools import setup
 import os.path
 import re
@@ -28,7 +27,7 @@ setup(
     version=package_version,
     author='Vahid Mardani',
     author_email='vahid.mardani@gmail.com',
-    url='http://github.com/dobisel/yhttp-pony',
+    url='http://github.com/yhttp/yhttp-pony',
     description='A very micro http framework.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',  # This is important!
