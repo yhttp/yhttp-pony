@@ -1,3 +1,4 @@
+import os
 import functools
 
 import bddrest
@@ -19,9 +20,9 @@ def Given(app):
 
 @pytest.fixture
 def freshdb(app):
-    host = 'localhost'
-    user = 'postgres'
-    password = 'postgres'
+    host = os.environ.get('YHTTPPONY_TEST_DBHOST', 'localhost')
+    user = os.environ.get('YHTTPPONY_TEST_USER', 'postgres')
+    password = os.environ.get('YHTTPPONY_TEST_PASSWORD', 'postgres')
     dbname = 'yhttpponytestdb'
     dbmanager = createdbmanager(host, 'postgres', user, password)
     dbmanager.create(dbname, dropifexists=True)

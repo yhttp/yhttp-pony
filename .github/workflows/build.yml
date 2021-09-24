@@ -37,7 +37,7 @@ jobs:
         python -m pip install -r requirements-ci.txt
         python -m pip install -e .
         sudo cp `which bddcli-bootstrapper` /usr/local/bin
-    - name: Lint with PyLama
+    - name: Lint
       run: make lint
     - name: Test with pytest
       run: make cover 
@@ -45,6 +45,7 @@ jobs:
       run: coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        YHTTPPONY_TEST_DBHOST: 'postgres'
 
   coveralls-finish:
     name: Coveralls finish
