@@ -3,7 +3,7 @@ from bddrest import status, response, when
 from pony.orm import db_session as dbsession, PrimaryKey, Required
 from yhttp import json
 
-from yhttp.extensions.pony import install
+from yhttp.ext.pony import install
 
 
 def test_extension(app, Given, freshdb):

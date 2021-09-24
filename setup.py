@@ -6,7 +6,7 @@ import re
 with open(
     os.path.join(
         os.path.dirname(__file__),
-        'yhttp/extensions/pony/', '__init__.py'
+        'yhttp/ext/pony/', '__init__.py'
     )
 ) as v_file:
     package_version = \
@@ -16,7 +16,7 @@ with open(
 
 
 dependencies = [
-    'yhttp >= 2.3.4, < 3',
+    'yhttp >= 3',
     'pony',
     'psycopg2',
 ]
@@ -32,7 +32,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',  # This is important!
     install_requires=dependencies,
-    packages=['yhttp.extensions.pony'],
+    packages=['yhttp.ext.pony'],
     license='MIT',
     classifiers=[
         'Environment :: Console',

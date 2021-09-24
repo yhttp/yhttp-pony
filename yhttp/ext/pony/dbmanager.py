@@ -30,7 +30,7 @@ class PostgresqlManager(DBManager):
     def execute(self, query):
         cursor = self.connection.cursor()
         try:
-            r = cursor.execute(query)
+            cursor.execute(query)
         finally:
             cursor.close()
 
@@ -51,7 +51,5 @@ class PostgresqlManager(DBManager):
         self.execute(f'DROP DATABASE IF EXISTS {name}')
 
 
-
 def createdbmanager(*a, **k):
     return PostgresqlManager(*a, **k)
-

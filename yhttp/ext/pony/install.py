@@ -17,7 +17,7 @@ def install(app, db=None):
 
         if 'db' not in settings:
             raise ValueError(
-                'Please provide db.url configuration entry, for example: ' \
+                'Please provide db.url configuration entry, for example: '
                 'postgres://:@/dbname'
             )
 
@@ -34,4 +34,3 @@ def install(app, db=None):
 
         app.db.schema = None
     return db
-

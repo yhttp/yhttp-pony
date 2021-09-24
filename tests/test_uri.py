@@ -1,5 +1,5 @@
 import pytest
-from yhttp.extensions.pony import uri
+from yhttp.ext.pony import uri
 
 
 def test_uriparse():

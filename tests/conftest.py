@@ -4,7 +4,7 @@ import bddrest
 import pytest
 
 from yhttp import Application
-from yhttp.extensions.pony import createdbmanager
+from yhttp.ext.pony import createdbmanager
 
 
 @pytest.fixture

@@ -4,4 +4,3 @@ from .dbmanager import createdbmanager
 
 
 __version__ = '1.1.3'
-

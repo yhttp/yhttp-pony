@@ -1,7 +1,7 @@
 PY = python3
 PIP = pip3
 TEST_DIR = tests
-PRJ = yhttp.extensions.pony
+PRJ = yhttp.ext.pony
 PYTEST_FLAGS = -v
 
 
