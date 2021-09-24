@@ -41,11 +41,12 @@ jobs:
       run: make lint
     - name: Test with pytest
       run: make cover 
+      env:
+        YHTTPPONY_TEST_DBHOST: 'postgres'
     - name: Coveralls
       run: coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        YHTTPPONY_TEST_DBHOST: 'postgres'
 
   coveralls-finish:
     name: Coveralls finish
