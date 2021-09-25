@@ -61,7 +61,7 @@ myapp db drop
 ```
 
 
-#### Custom sub command
+#### Extending db sub-command
 
 ```python
 import easycli
