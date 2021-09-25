@@ -4,8 +4,11 @@ from .cli import DatabaseCLI
 from . import uri
 
 
-def install(app, db=None):
+def install(app, db=None, cliarguments=None):
     app.cliarguments.append(DatabaseCLI)
+    if cliarguments:
+        DatabaseCLI.__arguments__.extend(cliarguments)
+
     if db is None:
         db = Database()
 

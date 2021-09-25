@@ -1,6 +1,15 @@
-from bddcli import Given, Application as CLIApplication, status, stderr, when
+from bddcli import Given, Application as CLIApplication, status, stderr, \
+    when, stdout
+import easycli
 from yhttp import Application
 from yhttp.ext.pony import install
+
+
+class Bar(easycli.SubCommand):
+    __command__ = 'bar'
+
+    def __call__(self, args):
+        print('bar')
 
 
 app = Application()
@@ -8,7 +17,7 @@ app.settings.merge('''
 db:
   url: postgres://postgres:postgres@localhost/foo
 ''')
-db = install(app)
+db = install(app, cliarguments=[Bar])
 
 
 def test_applicationcli():
@@ -25,3 +34,9 @@ def test_applicationcli():
         when('db drop')
         assert status == 0
         assert stderr == ''
+
+        # Custom Command line interface
+        when('db bar')
+        assert status == 0
+        assert stderr == ''
+        assert stdout == 'bar\n'
