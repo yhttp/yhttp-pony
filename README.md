@@ -56,10 +56,35 @@ your application when you call `ponyext.install(app)`.
 
 
 ```bash
-
 myapp db create
 myapp db drop
 ```
+
+
+#### Custom sub command
+
+```python
+import easycli
+
+
+class InsertMockup(easycli.SubCommand):
+    __command__ = 'insert-mockup-data'
+
+    def __call__(self, args):
+        ...
+
+...
+
+db = install(app, cliarguments=[InsertMockup])
+
+```
+
+Use it as:
+
+```bash
+myapp db insert-mockup-data
+```
+
 
 ### Running tests
 
