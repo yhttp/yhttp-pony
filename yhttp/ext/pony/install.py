@@ -22,7 +22,7 @@ def install(app, db=None, cliarguments=None):
                 'postgres://:@/dbname'
             )
 
-        orm.initialize(db, app.settings.db)
+        orm.initialize(db, app.settings.db.url)
 
     @app.when
     def shutdown(app):

@@ -1,8 +1,8 @@
 from . import uri
 
 
-def initialize(db, settings):
-    url = uri.parse(settings.url)
+def initialize(db, url):
+    url = uri.parse(url)
     db.bind(**url)
     db.generate_mapping(create_tables=True)
 
