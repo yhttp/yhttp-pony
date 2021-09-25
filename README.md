@@ -65,13 +65,20 @@ myapp db drop
 
 ```python
 import easycli
+from yhttp.ext.pony import initialize, deinitialize
+
+from mypackage import app  # yhttp application
 
 
 class InsertMockup(easycli.SubCommand):
     __command__ = 'insert-mockup-data'
 
     def __call__(self, args):
+        initialize(app.db, app.settings.db)
+
         ...
+
+        deinitialize(app.db)
 
 ...
 

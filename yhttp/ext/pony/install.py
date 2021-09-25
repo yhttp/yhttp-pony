@@ -1,7 +1,7 @@
 from pony.orm import Database
 
 from .cli import DatabaseCLI
-from . import uri
+from . import orm
 
 
 def install(app, db=None, cliarguments=None):
@@ -16,24 +16,16 @@ def install(app, db=None, cliarguments=None):
 
     @app.when
     def ready(app):
-        settings = app.settings
-
-        if 'db' not in settings:
+        if 'db' not in app.settings:
             raise ValueError(
                 'Please provide db.url configuration entry, for example: '
                 'postgres://:@/dbname'
             )
 
-        url = uri.parse(settings.db.url)
-        db.bind(**url)
-        db.generate_mapping(create_tables=True)
+        orm.initialize(db, app.settings.db)
 
     @app.when
     def shutdown(app):
-        app.db.disconnect()
-        if app.db.provider is not None:
-            app.db.provider.disconnect()
-            app.db.provider = None
+        orm.deinitialize(db)
 
-        app.db.schema = None
     return db
