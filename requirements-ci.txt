@@ -5,3 +5,4 @@ coveralls
 pytest >= 4.4.0
 pytest-cov
 flake8
+git+https://github.com/yhttp/yhttp-devutils.git
