@@ -7,6 +7,10 @@ from yhttp.ext.pony import install
 
 
 def test_extension(app, Given, freshdb):
+    app.settings.merge(f'''
+      db:
+        url: {freshdb}
+    ''')
     db = install(app)
 
     class Foo(db.Entity):
@@ -30,6 +34,8 @@ def test_extension(app, Given, freshdb):
     with Given():
         assert status == 200
         assert response.json == {'1': 'foo 1', '2': 'foo 2'}
+
+    app.shutdown()
 
 
 def test_exceptions(app):
