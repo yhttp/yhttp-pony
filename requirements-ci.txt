@@ -1,6 +1,6 @@
 bddrest >= 3.0.2, < 4
 bddcli >= 2.5.1, < 3
-coverage
+coverage < 6
 coveralls
 pytest >= 4.4.0
 pytest-cov
