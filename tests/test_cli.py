@@ -12,6 +12,9 @@ class Bar(easycli.SubCommand):
         print('bar')
 
 
+import yaml
+yaml.load(Application._builtinsettings, yaml.Loader)
+
 Application._builtinsettings = ''
 app = Application()
 app.settings.merge('''
