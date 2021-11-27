@@ -36,9 +36,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt install -y python3-dev libpq-dev gcc libyaml-dev python3-yaml
+        sudo apt purge -y python3-yaml
         python -m pip install --upgrade pip
-        #python -m pip install cython
-        #python -m pip install --ignore-installed --global-option='--with-libyaml' pyyaml
+        python -m pip install cython
+        python -m pip uninstall pyyaml
+        python -m pip install --ignore-installed --global-option='--with-libyaml' pyyaml
         python -m pip install -r requirements-ci.txt
         python -m pip install -e .
         sudo cp `which bddcli-bootstrapper` /usr/local/bin
