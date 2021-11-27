@@ -13,7 +13,7 @@ class Bar(easycli.SubCommand):
 
 
 import yaml
-yaml.load(Application._builtinsettings, yaml.Loader)
+yaml.load(Application._builtinsettings, yaml.CLoader)
 
 Application._builtinsettings = ''
 app = Application()
