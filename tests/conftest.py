@@ -1,6 +1,6 @@
-import yaml
-# Patch Yaml due github actions error
-yaml.CLoader = yaml.Loader
+# import yaml
+# # Patch Yaml due github actions error
+# yaml.CLoader = yaml.Loader
 
 import functools
 
