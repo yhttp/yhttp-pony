@@ -35,7 +35,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        sudo apt install python3-dev libpq-dev libyaml-dev
+        sudo apt install python3-dev libpq-dev
+        sudo apt install -y gcc libyaml-dev
+        pip install --ignore-installed --global-option='--with-libyaml' pyyaml
         python -m pip install --upgrade pip
         python -m pip install -r requirements-ci.txt
         python -m pip install -e .
