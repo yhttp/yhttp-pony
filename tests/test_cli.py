@@ -12,12 +12,13 @@ class Bar(easycli.SubCommand):
         print('bar')
 
 
+Application._builtinsettings = ''
 app = Application()
 app.settings.merge('''
 db:
   url: postgres://postgres:postgres@localhost/foo
 ''')
-db = install(app, cliarguments=[Bar])
+install(app, cliarguments=[Bar])
 
 
 def test_applicationcli():
