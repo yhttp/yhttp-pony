@@ -12,10 +12,6 @@ class Bar(easycli.SubCommand):
         print('bar')
 
 
-import yaml
-yaml.load(Application._builtinsettings, yaml.CLoader)
-
-Application._builtinsettings = ''
 app = Application()
 app.settings.merge('''
 db:
