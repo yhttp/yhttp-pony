@@ -23,8 +23,8 @@ install(app, cliarguments=[Bar])
 def test_applicationcli():
     cliapp = CLIApplication('example', 'tests.test_cli:app.climain')
     with Given(cliapp, 'db --help'):
-        assert status == 0
         assert stderr == ''
+        assert status == 0
 
         when('db drop')
         when('db create')
