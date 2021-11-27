@@ -1,7 +1,7 @@
 import pytest
-from bddrest import status, response
-from pony.orm import db_session as dbsession, PrimaryKey, Required
-from yhttp import json
+from bddrest import status, response, when
+from pony.orm import PrimaryKey, Required
+from yhttp import json, statuses
 
 from yhttp.ext.pony import install
 
@@ -11,9 +11,9 @@ def test_extension(app, Given, freshdb):
       db:
         url: {freshdb}
     ''')
-    db = install(app)
+    dbsession = install(app)
 
-    class Foo(db.Entity):
+    class Foo(app.db.Entity):
         id = PrimaryKey(int, auto=True)
         title = Required(str)
 
@@ -31,15 +31,44 @@ def test_extension(app, Given, freshdb):
     def get(req):
         return {f.id: f.title for f in Foo.select()}
 
+    @app.route()
+    @json
+    @dbsession
+    def got(req):
+        Foo(title='foo')
+        raise statuses.created()
+
+    @app.route()
+    @json
+    @dbsession
+    def err(req):
+        Foo(title='qux')
+        raise statuses.badrequest()
+
+    @dbsession
+    def getfoo(title):
+        return Foo.get(title=title)
+
     with Given():
         assert status == 200
         assert response.json == {'1': 'foo 1', '2': 'foo 2'}
+
+        when(verb='err')
+        assert status == 400
+        qux = getfoo('qux')
+        assert qux is None
+
+        when(verb='got')
+        assert status == 201
+
+        foo = getfoo('foo')
+        assert foo is not None
 
     app.shutdown()
 
 
 def test_exceptions(app):
-    db = install(app)  # noqa: F841
+    dbsession = install(app)  # noqa: F841
 
     if 'db' in app.settings:
         del app.settings['db']
