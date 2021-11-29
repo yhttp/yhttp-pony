@@ -31,7 +31,7 @@ def dbsession(func):
     return outter
 
 
-def install(app, db=None, cliarguments=None):
+def install(app, db=None, cliarguments=None, create_objects=False):
     app.cliarguments.append(DatabaseCLI)
     if cliarguments:
         DatabaseCLI.__arguments__.extend(cliarguments)
@@ -49,7 +49,7 @@ def install(app, db=None, cliarguments=None):
                 'postgres://:@/dbname'
             )
 
-        orm.initialize(db, app.settings.db.url)
+        orm.initialize(db, app.settings.db.url, create_objects=create_objects)
 
     @app.when
     def shutdown(app):

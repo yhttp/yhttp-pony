@@ -11,18 +11,20 @@ def test_extension(app, Given, freshdb):
       db:
         url: {freshdb}
     ''')
-    dbsession = install(app)
+
+    dbsession = install(app, create_objects=True)
 
     class Foo(app.db.Entity):
         id = PrimaryKey(int, auto=True)
         title = Required(str)
+
+    app.ready()
 
     @dbsession
     def mockup():
         Foo(title='foo 1')
         Foo(title='foo 2')
 
-    app.ready()
     mockup()
 
     @app.route()

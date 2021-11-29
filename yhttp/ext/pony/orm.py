@@ -1,10 +1,13 @@
 from . import uri
 
 
-def initialize(db, url):
+def initialize(db, url, create_objects=False):
     url = uri.parse(url)
     db.bind(**url)
-    db.generate_mapping(create_tables=True)
+    db.generate_mapping(
+        check_tables=create_objects,
+        create_tables=create_objects
+    )
 
 
 def deinitialize(db):

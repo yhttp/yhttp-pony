@@ -2,8 +2,9 @@ import functools
 import getpass
 
 from easycli import SubCommand, Argument
+from pony.orm import db_session
 
-from . import dbmanager, uri
+from . import dbmanager, uri, orm
 
 
 getdbpass = functools.partial(getpass.getpass, 'Enter db password: ')
@@ -46,6 +47,25 @@ class CreateDatabase(DatabaseAdministrativeCommand):
         info = self.getappdbinfo(args)
         self.getdbmanager(args) \
             .create(info['database'], owner=info.get('user'))
+
+        self.create_objects(args)
+        self.report_objects(args)
+
+    def create_objects(self, args):
+        app = args.application
+        orm.initialize(app.db, app.settings.db.url, create_objects=True)
+
+    @db_session
+    def report_objects(self, args):
+        app = args.application
+        result = app.db.execute('''
+            SELECT relname, relkind
+            FROM pg_class
+            WHERE relname !~ '^(pg|sql)_' AND relkind != 'v';
+        ''')
+        print('Following objects has been created successfully:')
+        for name, kind in result.fetchall():
+            print(kind, name)
 
 
 class DropDatabase(DatabaseAdministrativeCommand):
