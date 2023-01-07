@@ -1,3 +1,5 @@
+import os
+
 from bddcli import Given, Application as CLIApplication, status, stderr, \
     when, stdout
 import easycli
@@ -13,10 +15,15 @@ class Bar(easycli.SubCommand):
         print('bar')
 
 
+YHTTPDEV_DB_HOST = os.environ.get('YHTTPDEV_DB_HOST', '')
+YHTTPDEV_DB_USER = os.environ.get('YHTTPDEV_DB_USER', '')
+YHTTPDEV_DB_PASS = os.environ.get('YHTTPDEV_DB_PASS', '')
+
+
 app = Application()
-app.settings.merge('''
+app.settings.merge(f'''
 db:
-  url: postgres://:@/foo
+  url: postgres://{YHTTPDEV_DB_USER}:{YHTTPDEV_DB_PASS}@{YHTTPDEV_DB_HOST}/foo
 ''')
 install(app, cliarguments=[Bar])
 
