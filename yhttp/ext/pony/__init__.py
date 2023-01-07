@@ -5,4 +5,4 @@ from .dbmanager import createdbmanager
 from .orm import initialize, deinitialize
 
 
-__version__ = '2.4.0'
+__version__ = '2.4.1'
