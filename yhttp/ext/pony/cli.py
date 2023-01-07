@@ -19,20 +19,26 @@ class DatabaseAdministrativeCommand(SubCommand):
         Argument(
             '-H',
             '--host',
-            default='',
+            default=os.environ.get('YHTTPPONY_DEFAULT_HOST', ''),
             help='DB hostname, default: empty.'
         ),
         Argument('-d', '--database', default='postgres', help='DB name'),
         Argument(
             '-u',
             '--user',
-            default=DEFAULT_DBUSER,
+            default=os.environ.get(
+                'YHTTPPONY_DEFAULT_ADMINDBUSER',
+                DEFAULT_DBUSER
+            ),
             help=f'DB username, default: ${DEFAULT_DBUSER}'
         ),
         Argument(
             '-p', '--password',
             nargs='?',
-            default='postgres',
+            default=os.environ.get(
+                'YHTTPPONY_DEFAULT_ADMINDPASS',
+                'postgres'
+            ),
             help='DB password'
         ),
     ]
