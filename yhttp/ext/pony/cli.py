@@ -1,3 +1,4 @@
+import os
 import functools
 import getpass
 
@@ -10,11 +11,24 @@ from . import dbmanager, uri, orm
 getdbpass = functools.partial(getpass.getpass, 'Enter db password: ')
 
 
+DEFAULT_DBUSER = os.environ['USER']
+
+
 class DatabaseAdministrativeCommand(SubCommand):
     __arguments__ = [
-        Argument('-H', '--host', default='localhost', help='DB hostname'),
+        Argument(
+            '-H',
+            '--host',
+            default='',
+            help='DB hostname, default: empty.'
+        ),
         Argument('-d', '--database', default='postgres', help='DB name'),
-        Argument('-u', '--user', default='postgres', help='DB username'),
+        Argument(
+            '-u',
+            '--user',
+            default=DEFAULT_DBUSER,
+            help=f'DB username, default: ${DEFAULT_DBUSER}'
+        ),
         Argument(
             '-p', '--password',
             nargs='?',

@@ -16,7 +16,7 @@ class Bar(easycli.SubCommand):
 app = Application()
 app.settings.merge('''
 db:
-  url: postgres://postgres:postgres@localhost/foo
+  url: postgres://:@/foo
 ''')
 install(app, cliarguments=[Bar])
 
