@@ -36,7 +36,7 @@ class DatabaseAdministrativeCommand(SubCommand):
             '-p', '--password',
             nargs='?',
             default=os.environ.get(
-                'YHTTPPONY_DEFAULT_ADMINDPASS',
+                'YHTTPPONY_DEFAULT_ADMINPASS',
                 'postgres'
             ),
             help='DB password'
