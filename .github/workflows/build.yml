@@ -23,12 +23,6 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: postgres
-          YHTTPPONY_DEFAULT_HOST: localhost
-          YHTTPPONY_DEFAULT_ADMINDBUSER: postgres
-          YHTTPPONY_DEFAULT_ADMINPASS: postgres
-          YHTTPDEV_DB_HOST: localhost
-          YHTTPDEV_DB_USER: postgres
-          YHTTPDEV_DB_PASS: postgres
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
@@ -49,6 +43,13 @@ jobs:
     - name: Lint
       run: make lint
     - name: Test with pytest
+      env:
+        YHTTPPONY_DEFAULT_HOST: localhost
+        YHTTPPONY_DEFAULT_ADMINDBUSER: postgres
+        YHTTPPONY_DEFAULT_ADMINPASS: postgres
+        YHTTPDEV_DB_HOST: localhost
+        YHTTPDEV_DB_USER: postgres
+        YHTTPDEV_DB_PASS: postgres
       run: make cover 
     - name: Coveralls
       run: coveralls
