@@ -38,9 +38,8 @@ class PostgresqlManager(DBManager):
         if dropifexists:
             self.dropifexists(name)
 
-        query = f'CREATE DATABASE {name}'
-        if owner:
-            query += f' WITH OWNER {owner}'
+        query = f'CREATE DATABASE {name}' + \
+            (f' WITH OWNER {owner}' if owner else '')
 
         self.execute(query)
 
