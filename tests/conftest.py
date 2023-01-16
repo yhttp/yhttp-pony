@@ -9,7 +9,9 @@ from yhttp_devutils.fixtures import freshdb
 
 @pytest.fixture
 def app():
-    return Application()
+    app = Application()
+    yield app
+    app.shutdown()
 
 
 @pytest.fixture
