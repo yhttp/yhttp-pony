@@ -202,12 +202,17 @@ def get(name):
 
 
 def validate(entity, whitelist=None, exceptions=None, default_exception=None,
-             **kw):
-    strict = whitelist is not None
-    fields = Metadata.create_validationrules(
+             fields=None, strict=None, **kw):
+
+    strict_ = strict if strict is not None else whitelist is not None
+    fields_ = Metadata.create_validationrules(
         entity,
         whitelist=whitelist,
         exceptions=exceptions,
         default_exception=default_exception
     )
-    return yhttp.validate(fields=fields, strict=strict, **kw)
+
+    if fields:
+        fields_.update(fields)
+
+    return yhttp.validate(fields=fields_, strict=strict_, **kw)

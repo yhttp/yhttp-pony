@@ -33,7 +33,12 @@ def test_metadata_validation(app, Given, freshdb):
         'foo',
         whitelist=['title', 'phone', 'age', 'email', 'role'],
         exceptions=dict(readonly=statuses.forbidden()),
-        default_exception=statuses.status(700, 'Lorem Ipsum')
+        default_exception=statuses.status(700, 'Lorem Ipsum'),
+        fields=dict(
+            title=dict(
+                minlength=2
+            )
+        )
     )
     @json
     @statuscode(statuses.created)
@@ -43,7 +48,7 @@ def test_metadata_validation(app, Given, freshdb):
         return foo.to_dict()
 
     with Given(verb='CREATE', form=dict(
-            title='foo',
+            title='fo',
             phone='+1-222-1111',
             age=22,
             email='w@a.com'
@@ -54,9 +59,12 @@ def test_metadata_validation(app, Given, freshdb):
             'age': 22,
             'email': 'w@a.com',
             'phone': '+12221111',
-            'title': 'foo',
+            'title': 'fo',
             'role': 'user'
         }
+
+        when(form=given | dict(title='f'))
+        assert status == 400
 
         when(form=given + dict(role='admin'))
         assert status == 403
