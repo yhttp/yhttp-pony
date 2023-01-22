@@ -3,6 +3,9 @@ PIP = pip3
 TEST_DIR = tests
 PRJ = yhttp.ext.pony
 PYTEST_FLAGS = -v
+HERE = $(shell readlink -f `dirname .`)
+VENVNAME = $(shell basename $(HERE) | cut -d'-' -f1)
+VENV = $(HOME)/.virtualenvs/$(VENVNAME)
 
 
 .PHONY: test
@@ -18,6 +21,11 @@ cover:
 .PHONY: lint
 lint:
 	flake8
+
+
+.PHONY: venv
+venv:
+	python3 -m venv $(VENV)
 
 
 .PHONY: env

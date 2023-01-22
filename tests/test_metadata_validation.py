@@ -37,6 +37,9 @@ def test_metadata_validation(app, Given, freshdb):
         fields=dict(
             title=dict(
                 minlength=2
+            ),
+            age=dict(
+                minimum=None
             )
         )
     )
@@ -50,13 +53,13 @@ def test_metadata_validation(app, Given, freshdb):
     with Given(verb='CREATE', form=dict(
             title='fo',
             phone='+1-222-1111',
-            age=22,
+            age=1,
             email='w@a.com'
     )):
         assert status == 201
         assert response.json == {
             'id': 1,
-            'age': 22,
+            'age': 1,
             'email': 'w@a.com',
             'phone': '+12221111',
             'title': 'fo',
