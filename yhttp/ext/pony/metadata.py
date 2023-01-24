@@ -213,6 +213,7 @@ def validate(entity, whitelist=None, exceptions=None, default_exception=None,
     )
 
     if fields:
-        fields_.update(fields)
+        for k, v in fields.items():
+            fields_[k].update(v)
 
     return yhttp.validate(fields=fields_, strict=strict_, **kw)
