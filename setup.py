@@ -16,9 +16,9 @@ with open(
 
 
 dependencies = [
-    'yhttp >= 3.5.2, < 4',
+    'yhttp >= 3.5.2, < 5',
+    'yhttp-dbmanager >= 2.9',
     'pony',
-    'psycopg2',
 ]
 
 

@@ -1,9 +1,11 @@
 import functools
 
-import yhttp
 from pony.orm import Database, db_session
 
-from .cli import DatabaseCLI
+import yhttp
+from yhttp.ext.dbmanager import DatabaseCommand
+
+from .cli import DatabaseObjectsCommand
 from . import orm
 
 
@@ -32,9 +34,9 @@ def dbsession(func):
 
 
 def install(app, db=None, cliarguments=None, create_objects=False):
-    app.cliarguments.append(DatabaseCLI)
+    DatabaseCommand.__arguments__.append(DatabaseObjectsCommand)
     if cliarguments:
-        DatabaseCLI.__arguments__.extend(cliarguments)
+        DatabaseObjectsCommand.__arguments__.extend(cliarguments)
 
     if db is None:
         db = Database()

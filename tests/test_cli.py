@@ -4,8 +4,9 @@ from bddcli import Given, Application as CLIApplication, status, stderr, \
     when, stdout
 import easycli
 from pony.orm import PrimaryKey, Required
+
 from yhttp import Application
-from yhttp.ext.pony import install
+from yhttp.ext import pony as ponyext, dbmanager
 
 
 class Bar(easycli.SubCommand):
@@ -13,6 +14,13 @@ class Bar(easycli.SubCommand):
 
     def __call__(self, args):
         print('bar')
+
+
+class Baz(easycli.SubCommand):
+    __command__ = 'baz'
+
+    def __call__(self, args):
+        print('baz')
 
 
 YHTTPDEV_DB_HOST = os.environ.get('YHTTPDEV_DB_HOST', '')
@@ -25,7 +33,8 @@ app.settings.merge(f'''
 db:
   url: postgres://{YHTTPDEV_DB_USER}:{YHTTPDEV_DB_PASS}@{YHTTPDEV_DB_HOST}/foo
 ''')
-install(app, cliarguments=[Bar])
+dbmanager.install(app, cliarguments=[Bar])
+ponyext.install(app, cliarguments=[Baz])
 
 
 class Foo(app.db.Entity):
@@ -39,22 +48,23 @@ def test_applicationcli():
         assert stderr == ''
         assert status == 0
 
-        when('db drop')
-        when('db create')
-        assert stderr == ''
-        assert status == 0
-
-        when('db drop')
-        assert status == 0
-        assert stderr == ''
-
         # Custom Command line interface
         when('db bar')
         assert status == 0
         assert stderr == ''
         assert stdout == 'bar\n'
 
-        when('db c')
+        when('db objects baz')
+        assert status == 0
+        assert stderr == ''
+        assert stdout == 'baz\n'
+
+        when('db drop')
+        when('db create')
+        assert stderr == ''
+        assert status == 0
+
+        when('db objects create')
         assert status == 0
         assert stderr == ''
         assert stdout == '''Following objects has been created successfully:
