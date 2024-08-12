@@ -11,7 +11,7 @@ Pony ORM extension for [yhttp](https://github.com/yhttp/yhttp).
 ## Install
 
 ```bash
-sudo apt install python3-dev libpq-dev postgresql  # Postgresql
+sudo apt`install python3-dev libpq-dev postgresql  # Postgresql
 pip install yhttp-pony
 ```
 
@@ -65,38 +65,54 @@ myapp db drop
 
 ```python
 import easycli
-from yhttp.ext.pony import initialize, deinitialize
+from yhttp.ext import dbmanager, ponyext
 
 from mypackage import app  # yhttp application
 
 
-class InsertMockup(easycli.SubCommand):
-    __command__ = 'insert-mockup-data'
+class InsertMockupCommand(easycli.SubCommand):
+    __command__ = 'insert-mockup'
 
     def __call__(self, args):
-        initialize(app.db, app.settings.db)
+        ponyext.initialize(app.db, app.settings.db)
 
-        ...
+        # Insert mockup data
 
-        deinitialize(app.db)
+        ponyext.deinitialize(app.db)
+
+
+class VerifyObjectsCommand(easycli.SubCommand):
+    __command__ = 'verify'
+    __aliases__ = ['v']
+
+    def __call__(self, args):
+        ponyext.initialize(app.db, app.settings.db)
+
+        # Verify database objects
+
+        ponyext.deinitialize(app.db)
 
 ...
 
-db = install(app, cliarguments=[InsertMockup])
-
+dbmanager.install(app, cliarguments=[InsertMockupCommand])
+db = ponyext.install(app, cliarguments=[VerifyObjectsCommand])
 ```
 
 Use it as:
 
 ```bash
-myapp db insert-mockup-data
+myapp db create
+myapp db insert-mockup
+myapp db objects create
+myapp db objects verify
+myapp db drop
 ```
 
 
 ## Contribution
 
 ### Dependencies
-Install `postgreslq` brefore use of this project.
+Install `postgresql` brefore use of this project.
 ```bash
 apt install postgresql
 ```
