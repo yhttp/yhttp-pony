@@ -52,11 +52,13 @@ app.ready()
 ### Command line interface
 
 There is some command line interfaces which will be automatically added to
-your application when you call `ponyext.install(app)`.
+your application when you call `dbmanager.install(app, ...)` and  
+`ponyext.install(app, ...)`.
 
 
 ```bash
 myapp db create
+myapp db objects create
 myapp db drop
 ```
 
