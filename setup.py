@@ -1,6 +1,8 @@
-from setuptools import setup
 import os.path
 import re
+
+from setuptools import setup, find_namespace_packages
+
 
 # reading package's version (same way sqlalchemy does)
 with open(
@@ -16,8 +18,8 @@ with open(
 
 
 dependencies = [
-    'yhttp >= 3.5.2, < 5',
-    'yhttp-dbmanager >= 2.9',
+    'yhttp >= 5, < 6',
+    'yhttp-dbmanager >= 3',
     'pony',
 ]
 
@@ -31,9 +33,13 @@ setup(
     description='A very micro http framework.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',  # This is important!
-    install_requires=dependencies,
-    packages=['yhttp.ext.pony'],
     license='MIT',
+    install_requires=dependencies,
+    packages=find_namespace_packages(
+        where='.',
+        include=['yhttp.ext.pony'],
+        exclude=['tests'],
+    ),
     classifiers=[
         'Environment :: Console',
         'Environment :: Web Environment',

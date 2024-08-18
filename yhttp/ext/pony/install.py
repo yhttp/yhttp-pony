@@ -2,7 +2,7 @@ import functools
 
 from pony.orm import Database, db_session
 
-import yhttp
+import yhttp.core as y
 from yhttp.ext.dbmanager import DatabaseCommand
 
 from .cli import DatabaseObjectsCommand
@@ -18,14 +18,14 @@ def dbsession(func):
         def wrapper(*a, **kw):
             try:
                 return func(*a, **kw)
-            except yhttp.HTTPStatus as ex:
+            except y.HTTPStatus as ex:
                 if ex.keepheaders:
                     return ex
 
                 raise ex
 
         result = wrapper(*a, **kw)
-        if isinstance(result, yhttp.HTTPStatus):
+        if isinstance(result, y.HTTPStatus):
             raise result
 
         return result

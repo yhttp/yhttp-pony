@@ -1,29 +1,28 @@
-name: PyPI
+name: Deploy
 
 on:
   release:
     types: [created]
 
 jobs:
-  pypi:
-    name: PyPI
+  deploypypi:
+    name: Deploy to PyPI
     runs-on: ubuntu-latest
+    env:
+      PREFIX: /usr 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      uses: actions/setup-python@v5
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements-ci.txt
-        python -m pip install -e .
+        git clone https://github.com/pylover/python-makelib.git make
+        make env ENV=ci
     - name: Create distributions
       run: make dist
     - name: Publish a Python distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@release/v1.9
       with:
         user: __token__
         password: ${{ secrets.PYPI_TOKEN }}
-

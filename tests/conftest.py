@@ -3,8 +3,8 @@ import functools
 import bddrest
 import pytest
 
-from yhttp import Application
-from yhttp_devutils.fixtures import freshdb
+from yhttp.core import Application
+from yhttp.dev.fixtures import freshdb
 
 
 @pytest.fixture

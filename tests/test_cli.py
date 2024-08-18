@@ -5,7 +5,7 @@ from bddcli import Given, Application as CLIApplication, status, stderr, \
 import easycli
 from pony.orm import PrimaryKey, Required
 
-from yhttp import Application
+from yhttp.core import Application
 from yhttp.ext import pony as ponyext, dbmanager
 
 

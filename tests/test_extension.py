@@ -1,7 +1,7 @@
 import pytest
 from bddrest import status, response, when
 from pony.orm import PrimaryKey, Required
-from yhttp import json, statuses
+from yhttp.core import json, statuses
 
 from yhttp.ext.pony import install
 
