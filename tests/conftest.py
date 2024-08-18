@@ -4,7 +4,7 @@ import bddrest
 import pytest
 
 from yhttp.core import Application
-from yhttp.dev.fixtures import freshdb
+from yhttp.dev.fixtures import freshdb, cicd
 
 
 @pytest.fixture

@@ -7,4 +7,4 @@ coveralls
 pytest >= 4.4.0
 pytest-cov
 flake8
-yhttp-dev >= 3.0.5
+yhttp-dev >= 3.1.1
