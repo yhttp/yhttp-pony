@@ -1,7 +1,7 @@
 # yhttp-pony
 
 [![PyPI](http://img.shields.io/pypi/v/yhttp-pony.svg)](https://pypi.python.org/pypi/yhttp-pony)
-[![Build](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml)
+[![Build](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml/badge.svg)](https://github.com/yhttp/yhttp-pony/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/yhttp/yhttp-pony/badge.svg?branch=master)](https://coveralls.io/github/yhttp/yhttp-pony?branch=master)
 
 
