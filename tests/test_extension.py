@@ -3,7 +3,7 @@ from bddrest import status, response, when
 from pony.orm import PrimaryKey, Required
 from yhttp.core import json, statuses
 
-from yhttp.ext.pony import install
+from yhttp.ext.pony import install, dbsession
 
 
 def test_extension(app, Given, freshdb):
@@ -12,7 +12,7 @@ def test_extension(app, Given, freshdb):
         url: {freshdb}
     ''')
 
-    dbsession = install(app, create_objects=True)
+    install(app, create_objects=True)
 
     class Foo(app.db.Entity):
         id = PrimaryKey(int, auto=True)

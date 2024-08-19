@@ -56,5 +56,3 @@ def install(app, db=None, cliarguments=None, create_objects=False):
     @app.when
     def shutdown(app):
         orm.deinitialize(db)
-
-    return dbsession
