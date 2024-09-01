@@ -7,6 +7,8 @@ from yhttp.ext.pony import install, dbsession
 
 
 def test_extension(app, Given, freshdb):
+    freshdb = freshdb.replace('postgresql', 'postgres')
+
     app.settings.merge(f'''
       db:
         url: {freshdb}

@@ -18,8 +18,8 @@ with open(
 
 
 dependencies = [
-    'yhttp >= 5.0.2, < 6',
-    'yhttp-dbmanager >= 4, < 5',
+    'yhttp >= 6.2, < 7',
+    'yhttp-dbmanager >= 5.0.1, < 6',
     'pony',
 ]
 
